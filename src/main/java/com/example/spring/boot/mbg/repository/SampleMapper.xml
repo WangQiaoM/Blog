@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.spring.boot.mbg.repository.SampleMapper">
+  <resultMap id="SampleBaseResultMap" type="com.example.spring.boot.mbg.entity.Sample">
+    <!-- @mbg.generated -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="SampleWhereClause">
+    <!-- @mbg.generated -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="SampleUpdateClause">
+    <!-- @mbg.generated -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="SampleBaseColumns">
+    <!-- @mbg.generated -->
+    id, 
+    name
+  </sql>
+  <select id="findOne" parameterType="java.lang.Long" resultMap="SampleBaseResultMap">
+    <!-- @mbg.generated -->
+    select 
+    <include refid="SampleBaseColumns" />
+    from tb_sample
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long">
+    <!-- @mbg.generated -->
+    delete from tb_sample
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.spring.boot.mbg.entity.SampleExample">
+    <!-- @mbg.generated -->
+    delete from tb_sample
+    <if test="_parameter != null">
+      <include refid="SampleWhereClause" />
+    </if>
+  </delete>
+  <insert id="save" parameterType="com.example.spring.boot.mbg.entity.Sample">
+    <!-- @mbg.generated -->
+    insert into tb_sample
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.spring.boot.mbg.entity.SampleExample" resultType="java.lang.Long">
+    <!-- @mbg.generated -->
+    select count(*) from tb_sample
+    <if test="_parameter != null">
+      <include refid="SampleWhereClause" />
+    </if>
+  </select>
+  <update id="updateByExample" parameterType="map">
+    <!-- @mbg.generated -->
+    update tb_sample
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="SampleUpdateClause" />
+    </if>
+  </update>
+  <update id="update" parameterType="com.example.spring.boot.mbg.entity.Sample">
+    <!-- @mbg.generated -->
+    update tb_sample
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findAll" parameterType="com.example.spring.boot.mbg.entity.Sample" resultMap="SampleBaseResultMap">
+    <!-- @mbg.generated -->
+    select 
+    <include refid="SampleBaseColumns" />
+    from tb_sample
+    <where>
+      <if test="id != null">
+         and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+         and name = #{name,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="findByExample" parameterType="com.example.spring.boot.mbg.entity.SampleExample" resultMap="SampleBaseResultMap">
+    <!-- @mbg.generated -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="SampleBaseColumns" />
+    from tb_sample
+    <if test="_parameter != null">
+      <include refid="SampleWhereClause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

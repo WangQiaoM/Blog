@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example.spring.boot</groupId>
+	<artifactId>spring-boot-mybatis-generate</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>spring-boot-mybatis-generate</name>
+	<description>springBoot-mybatis自动生成代码</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<mybatis.generator.version>1.3.5</mybatis.generator.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-maven-plugin</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+
+			<!-- MyBatis Generator 插件 -->
+			<plugin>
+				<!-- 执行 mvn mybatis-generator:generate -e -->
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.5</version>
+				<executions>
+					<execution>
+						<id>Generate MyBatis Artifacts</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<!-- 依赖的包 -->
+				<dependencies>
+
+					<!--  添加自定义插件,根据自定义生成对应的Entity Mapper....   详情请看源码 -->
+					<dependency>
+						<groupId>com.brtbeacon.mbg</groupId>
+						<artifactId>mybatis-generator-support</artifactId>
+						<version>2.0</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.mybatis.generator</groupId>
+						<artifactId>mybatis-generator-core</artifactId>
+						<version>${mybatis.generator.version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.6</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+					<!-- 不指定配置文件路径时默认src/main/resource/generatorConfig.xml -->
+					<configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- Maven仓库定义 使用公司内部的包和插件时将从私服下载 -->
+	<repositories>
+		<repository>
+			<id>brt-releases</id>
+			<name>BrightBeacon release</name>
+			<url>http://nexus.brtbeacon.net/repository/maven-releases</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven2-repo</id>
+			<name>maven2 Repository</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>brt-releases</id>
+			<name>BrightBeacon release</name>
+			<url>http://nexus.brtbeacon.net/repository/maven-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>
